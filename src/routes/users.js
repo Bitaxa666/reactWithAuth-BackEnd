@@ -1,0 +1,25 @@
+/**
+ * Created by user on 4/20/18.
+ */
+/*create new user- Sign up function, then confirm with jwt token - link: http://localhost:3000/confirm/{jwt from DB}*/
+import express from 'express';
+import User from '../models/User';
+import parseErrors from '../utils/parseErrors';
+/*import { sendConfirmationEmail } from '../mailer';*/
+
+const router = express.Router();
+
+router.post('/', (req, res) => {
+    const { email, password } = req.body.user;
+    const user = new User({ email});
+    user.setPassword(password);
+    user.setConfirmationToken();
+    user.save()
+        .then(userRecord => {
+            /*sendConfirmationEmail(userRecord);*/
+            res.json({ user: userRecord.toAuthJSON()})
+        })
+        .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
+});
+
+export default router;

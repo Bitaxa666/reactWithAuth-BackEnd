@@ -22,6 +22,7 @@
     "prettier": "1.6.1"
   },
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "bcrypt": "^1.0.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
@@ -30,6 +31,8 @@
     "jsonwebtoken": "^8.2.1",
     "lodash": "^4.17.5",
     "mongoose": "^5",
-    "mongoose-unique-validator": "^1.0.5"
+    "mongoose-unique-validator": "^1.0.5",
+    "request-promise": "^4.2.2",
+    "xml2js": "^0.4.19"
   }
 }

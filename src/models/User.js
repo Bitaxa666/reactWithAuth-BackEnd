@@ -4,6 +4,7 @@
 /*cred: email: "admin@gmail.com" , passwordHash: "$2b$10$nfeFc4EoUClztgFnxDKV1u46a2RjzhtYmVaOBEK1RmtJXzxATgdxm"*/
 /*bcrypt password: "12345" (10symbols)*/
 /*cred: email:test-test@gmail.com, password: "12345" */
+/*confirmed email: test22@tes.ru, pwd: 12345*/
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -35,7 +36,20 @@ schema.methods.setConfirmationToken = function setConfirmationToken() {
 
 schema.methods.generateConfirmationUrl = function generateConfirmationUrl() {
     return `${process.env.HOST}/confirmation/${this.confirmationToken}`
-}
+};
+
+schema.methods.generateResetPasswordLink = function generateResetPasswordLink() {
+    return `${process.env.HOST}/reset_password/${this.generateResetPasswordToken()}`
+};
+/*Добавить генерацию токена для ресетпассворда*/
+schema.methods.generateResetPasswordToken = function generateResetPasswordToken() {
+    return jwt.sign({
+        _id: this._id
+    },
+        process.env.JWT_SECRET,
+        {expiresIn: "1h" }
+    );
+};
 
 schema.methods.generateJWT = function generateJWT() {
     return jwt.sign({

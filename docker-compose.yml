@@ -1,0 +1,17 @@
+version: "2"
+services:
+  appbackend1:
+    container_name: backend1
+    restart: always
+    build: .
+    ports:
+      - "8099:8099"
+    links:
+      - mongodb
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    volumes:
+      - ./data/mongo:/data/db
+    ports:
+      - "27017:27017"

@@ -78,4 +78,8 @@ router.get("/fetchPages", (req, res) => {
         );
 });
 
+/*router.delete(`/:id`, (req, res) => {
+
+});*/
+
 export default router;

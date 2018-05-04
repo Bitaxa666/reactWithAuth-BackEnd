@@ -5,13 +5,21 @@ services:
     restart: always
     build: .
     ports:
-      - "8099:8099"
+      - "8097:8097"
+    environment:
+      - MONGO_URI=mongodb://mongodb/bookworm
     links:
       - mongodb
   mongodb:
     container_name: mongodb
     image: mongo
     volumes:
-      - ./data/mongo:/data/db
+      - ./data:/data/db
     ports:
       - "27017:27017"
+  frontend:
+    container_name: front1
+    restart: always
+    build: ./frontend
+    ports:
+      - "5013:5013"

@@ -19,7 +19,7 @@ const schema = new mongoose.Schema(
     },
     { timestamps: true}
 );
-/*почему то не работает*/
+
 schema.methods.isValidPassword = function isValidPassword(password) {
     console.log("password: " + password + " hash: " + this.passwordHash);
     console.log("email:" + this.email );

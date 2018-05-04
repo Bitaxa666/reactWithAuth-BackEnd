@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import Promise from "bluebird";
+var database = require('./config/database');
 
 import auth from './routes/auth';
 import users from './routes/users';
@@ -17,7 +18,8 @@ const app = express();
 app.use(bodyParser.json());
 /*mongoose.connect("mongodb://localhost/bookworm", { useMongoClient: true });*/
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGODB_URL);
+/*mongoose.connect(process.env.MONGODB_URL);*/
+mongoose.connect(database.url);
 
 app.use('/api/auth', auth);
 app.use('/api/users', users);
@@ -28,4 +30,4 @@ app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(8099, () => console.log("Running on localhost: 8099"));
+app.listen(8097, () => console.log("Running on localhost: 8097"));

@@ -37,8 +37,19 @@ const router = express.Router();
 router.use(authenticate);
 
 router.get("/", (req, res) => {
-    Book.find({ userId: req.currentUser._Id }).then(books => res.json({ books }));
+    Book.find({ userId: req.currentUser._id }).then(books => {console.log(books); res.json({ books })});
+
 });
+
+router.delete(`/:id`, (req, res) => {
+    console.log(req.currentUser._id);
+    Book.findByIdAndRemove({_id: req.params.id})
+                .then(res.status(200))
+                /*.then(Book.find({userId: req.currentUser._id &&})).then(books => res.json({ books }))
+                .catch(err => res.status(400).json({ errors: parseErrors(err.errors) }));
+                /!*Book.find({ userId: req.currentUser._id }).then(books => res.json({ books })))*!/*/
+});
+
 
 router.post("/", (req, res) => {
     Book.create({ ...req.body.book, userId: req.currentUser._id })
@@ -78,8 +89,5 @@ router.get("/fetchPages", (req, res) => {
         );
 });
 
-/*router.delete(`/:id`, (req, res) => {
-
-});*/
 
 export default router;
